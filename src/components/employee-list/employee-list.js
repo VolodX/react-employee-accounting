@@ -3,18 +3,12 @@ import EmployeeListItem from '../employee-list-item/employee-list-item';
 import './employee-list.css';
 
 const EmployeeList = ({data}) => {
+  const elements = data.map(item => {
+    const {id, ...itemProps} = item;
+    return <EmployeeListItem key={id} {...itemProps} />;
+  });
 
-	const elements = data.map(item => {
-		return (
-			<EmployeeListItem name={item.name} salary={item.salary} increase={item.increase} />
-		)
-	})
-
-  return (
-    <ul className="app-list list-group">
-			{elements}
-    </ul>
-  );
+  return <ul className="app-list list-group">{elements}</ul>;
 };
 
 export default EmployeeList;
