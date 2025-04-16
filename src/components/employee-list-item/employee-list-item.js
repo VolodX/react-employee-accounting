@@ -1,13 +1,14 @@
 import {Component} from 'react';
-import './employee-list-item.css';
 import cn from 'classnames';
+
+import './employee-list-item.css';
 
 class EmployeeListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       increase: false,
-			rise: false
+      rise: false
     };
   }
 
@@ -17,23 +18,25 @@ class EmployeeListItem extends Component {
     }));
   };
 
-	onRise = () => {
-		this.setState(({rise}) => ({
-			rise: !rise
-		}))
-	}
+  onRise = () => {
+    this.setState(({rise}) => ({
+      rise: !rise
+    }));
+  };
 
   render() {
-    const {name, salary} = this.props;
+    const {name, salary, onDelete} = this.props;
     const {increase, rise} = this.state;
     const classes = cn('list-group-item', 'd-flex', 'justify-content-between', {
       increase,
-			rise
+      rise
     });
 
     return (
       <li className={classes}>
-        <span className="list-group-item-label" onClick={this.onRise}>{name}</span>
+        <span className="list-group-item-label" onClick={this.onRise}>
+          {name}
+        </span>
         <input
           type="text"
           className="list-group-item-input"
@@ -48,7 +51,7 @@ class EmployeeListItem extends Component {
             <i className="fas fa-cookie"></i>
           </button>
 
-          <button type="button" className="btn-trash btn-sm">
+          <button type="button" className="btn-trash btn-sm" onClick={onDelete}>
             <i className="fas fa-trash"></i>
           </button>
           <i className="fas fa-star"></i>
