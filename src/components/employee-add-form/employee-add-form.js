@@ -18,7 +18,13 @@ class EmployeeAddForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.onAdd(this.state.name, this.state.salary);
+		const salaryValue = parseFloat(this.state.salary);
+
+    if (this.state.name.length >= 3 && !isNaN(salaryValue) && salaryValue >= 1) {
+			this.props.onAdd(this.state.name, this.state.salary);
+		} else {
+			return;
+		}
     this.setState({
       name: '',
       salary: ''
