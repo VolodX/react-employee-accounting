@@ -3,7 +3,14 @@ import cn from 'classnames';
 import './employee-list-item.css';
 
 const EmployeeListItem = props => {
-  const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} = props;
+  const {
+    name,
+    salary,
+    onDelete,
+    onToggleProp,
+    increase,
+    rise
+  } = props;
   const classes = cn('list-group-item', 'd-flex', 'justify-content-between', {
     increase,
     rise
@@ -11,7 +18,7 @@ const EmployeeListItem = props => {
 
   return (
     <li className={classes}>
-      <span className="list-group-item-label" onClick={onToggleRise}>
+      <span className="list-group-item-label" onClick={onToggleProp} data-toggle="rise">
         {name}
       </span>
       <input
@@ -23,7 +30,8 @@ const EmployeeListItem = props => {
         <button
           type="button"
           className="btn-cookie btn-sm "
-          onClick={onToggleIncrease}
+          onClick={onToggleProp}
+					data-toggle="increase"
         >
           <i className="fas fa-cookie"></i>
         </button>
