@@ -1,41 +1,58 @@
+import { useState, useEffect } from 'react';
 import cn from 'classnames';
-
+import { NumericFormat } from 'react-number-format';
 import './employee-list-item.css';
 
-const EmployeeListItem = props => {
-  const {
-    name,
-    salary,
-    onDelete,
-    onToggleProp,
-    increase,
-    rise
-  } = props;
+const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateWage, increase, rise }) => {
   const classes = cn('list-group-item', 'd-flex', 'justify-content-between', {
     increase,
     rise
   });
 
+  const [wage, setWage] = useState(salary);
+
+  useEffect(() => {
+    setWage(salary);
+  }, [salary]);
+
+  const handleValueChange = values => {
+    const newWage = values.value; // Чистий числовий рядок
+    if (!/^\d*$/.test(newWage)) return; // Тільки цифри
+    const maxSalary = 9999999;
+    if (newWage && parseInt(newWage) > maxSalary) return;
+
+    setWage(newWage);
+    onUpdateWage(newWage);
+  };
+
   return (
     <li className={classes}>
-      <span className="list-group-item-label" onClick={onToggleProp} data-toggle="rise">
+      <span
+        className="list-group-item-label"
+        onClick={onToggleProp}
+        data-toggle="rise"
+      >
         {name}
       </span>
-      <input
-        type="text"
+      <NumericFormat
         className="list-group-item-input"
-        defaultValue={salary + '$'}
+        value={wage}
+        suffix="$"
+        thousandSeparator={true}
+        allowNegative={false}
+        onValueChange={handleValueChange}
+        placeholder="Salary"
+        aria-label={`Salary for ${name}`}
       />
       <div className="d-flex justify-content-center align-items-center">
         <button
           type="button"
-          className="btn-cookie btn-sm "
+          className="btn-cookie btn-sm"
           onClick={onToggleProp}
-					data-toggle="increase"
+          data-toggle="increase"
         >
           <i className="fas fa-cookie"></i>
         </button>
-
         <button type="button" className="btn-trash btn-sm" onClick={onDelete}>
           <i className="fas fa-trash"></i>
         </button>

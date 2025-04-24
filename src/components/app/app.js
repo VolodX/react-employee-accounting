@@ -89,6 +89,18 @@ class App extends Component {
 		this.setState({filter})
 	}
 
+  onUpdateWage = (id, wage) => {
+    this.setState(({ data }) => ({
+      data: data.map(item => {
+        if (item.id === id) {
+          const newSalary = parseInt(wage) || 0; // Конвертуємо в число, якщо некоректно — 0
+          return { ...item, salary: newSalary >= 0 ? newSalary : item.salary }; // Запобігаємо від’ємним значенням
+        }
+        return item;
+      })
+    }));
+  };
+
   render() {
 		const {data, term, filter} = this.state;
     const employees = this.state.data.length;
@@ -108,6 +120,7 @@ class App extends Component {
           data={visibleData}
           onDelete={this.deleteItem}
           onToggleProp={this.onToggleProp}
+					onUpdateWage={this.onUpdateWage}
         />
         <EmployeeAddForm onAdd={this.addItem} />
       </div>
