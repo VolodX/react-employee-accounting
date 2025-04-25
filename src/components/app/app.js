@@ -93,8 +93,8 @@ class App extends Component {
     this.setState(({ data }) => ({
       data: data.map(item => {
         if (item.id === id) {
-          const newSalary = parseInt(wage) || 0; // Конвертуємо в число, якщо некоректно — 0
-          return { ...item, salary: newSalary >= 0 ? newSalary : item.salary }; // Запобігаємо від’ємним значенням
+          const newSalary = parseInt(wage) || 0;
+          return { ...item, salary: newSalary};
         }
         return item;
       })
