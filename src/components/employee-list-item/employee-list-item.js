@@ -18,12 +18,17 @@ const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateWage, 
   const handleValueChange = values => {
     const newWage = values.value; // Чистий числовий рядок
     if (!/^\d*$/.test(newWage)) return; // Тільки цифри
-    const maxSalary = 9999999;
-    if (newWage && parseInt(newWage) > maxSalary) return;
+    // if (newWage && parseInt(newWage) > maxSalary) return;
 
     setWage(newWage);
     onUpdateWage(newWage);
   };
+
+	const isAllowed = values => {
+		const maxSalary = 999999999;
+		const {floatValue} = values;
+		return floatValue <= maxSalary || !floatValue;
+	}
 
   return (
     <li className={classes}>
@@ -43,6 +48,10 @@ const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateWage, 
         onValueChange={handleValueChange}
         placeholder="Salary"
         aria-label={`Salary for ${name}`}
+				isAllowed={isAllowed}
+				decimalScale={0} // Prohibit fractional part
+				// fixedDecimalScale={true}
+				// defaultValue={0}
       />
       <div className="d-flex justify-content-center align-items-center">
         <button
