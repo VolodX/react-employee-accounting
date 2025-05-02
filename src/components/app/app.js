@@ -40,12 +40,7 @@ class App extends Component {
       rise: false,
       id: this.maxId++
     };
-    this.setState(({data}) => {
-      const newArr = [...data, newItem];
-      return {
-        data: newArr
-      };
-    });
+    this.setState(({data}) => ({data: [...data, newItem]}));
   };
 
   onToggleProp = (id, prop) => {
