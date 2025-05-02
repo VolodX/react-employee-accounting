@@ -54,7 +54,7 @@ class EmployeeAddForm extends Component {
           />
 
           <button type="submit" className="btn btn-outline-light">
-            Добавить
+            Add
           </button>
         </form>
       </div>
