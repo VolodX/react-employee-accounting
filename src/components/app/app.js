@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
@@ -9,20 +10,18 @@ import EmployeeAddForm from '../employee-add-form/employee-add-form';
 import './app.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       data: [
-        {name: 'John C.', salary: 990, increase: false, rise: true, id: 1},
-        {name: 'Alex M.', salary: 4600, increase: true, rise: false, id: 2},
-        {name: 'Carl W.', salary: 9500, increase: false, rise: false, id: 3},
-        {name: 'Mark.F', salary: 17000, increase: false, rise: false, id: 4}
+        {name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
+        {name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
+        {name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
+        {name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
       ],
 			term : '',
 			filter: 'all'
     };
-    this.maxId = 5;
-  }
+    // this.maxId = 5;
+  
 
   deleteItem = id => {
     this.setState(({data}) => {
@@ -38,7 +37,7 @@ class App extends Component {
       salary,
       increase: false,
       rise: false,
-      id: this.maxId++
+      id: uuidv4()
     };
     this.setState(({data}) => ({data: [...data, newItem]}));
   };
@@ -98,8 +97,8 @@ class App extends Component {
 
   render() {
 		const {data, term, filter} = this.state;
-    const employees = this.state.data.length;
-    const increased = this.state.data.filter(item => item.increase).length;
+    const employees = data.length;
+    const increased = data.filter(item => item.increase).length;
 		const visibleData = this.filterPost(this.searchEmp(data, term), filter);
 
     return (
