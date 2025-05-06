@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
@@ -10,17 +10,16 @@ import EmployeeAddForm from '../employee-add-form/employee-add-form';
 import './app.css';
 
 class App extends Component {
-    state = {
-      data: [
-        {name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
-        {name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
-        {name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
-        {name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
-      ],
-			term : '',
-			filter: 'all'
-    };
-  
+	state = {
+		data: [
+			{name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
+			{name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
+			{name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
+			{name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
+		],
+		term : '',
+		filter: 'all'
+	};
 
   deleteItem = id => {
     this.setState(({data}) => {
@@ -52,53 +51,62 @@ class App extends Component {
     }));
   };
 
-	searchEmp = (items, term) => {
-		if (term.length === 0) {
-			return items;
-		}
+  searchEmp = (items, term) => {
+    if (term.length === 0) {
+      return items;
+    }
 
-		return items.filter(item => {
-			// return item.name.indexOf(term) > -1
-			return item.name.toLowerCase().includes(term.toLowerCase())
-		})
-	}
+    return items.filter(item => {
+      // return item.name.indexOf(term) > -1
+      return item.name.toLowerCase().includes(term.toLowerCase());
+    });
+  };
 
-	updateSearch = (term) => {
-		this.setState({term: term})
-	}
+  updateSearch = term => {
+    this.setState({term: term});
+  };
 
-	filterPost = (items, filter) => {
-		switch (filter) {
-			case 'rise':
-				return items.filter(item => item.rise);
-			case 'over1000':
-				return items.filter(item => item.salary > 1000);
-			default: 
-				return items;
-		}
-	}
+  filterPost = (items, filter) => {
+    switch (filter) {
+      case 'rise':
+        return items.filter(item => item.rise);
+      case 'over1000':
+        return items.filter(item => item.salary > 1000);
+      default:
+        return items;
+    }
+  };
 
-	filterSelect = (filter) => {
-		this.setState({filter})
-	}
+  filterSelect = filter => {
+    this.setState({filter});
+  };
 
   updateSalary = (id, salary) => {
-    this.setState(({ data }) => ({
+    this.setState(({data}) => ({
       data: data.map(item => {
         if (item.id === id) {
           const newSalary = parseInt(salary) || 0;
-          return { ...item, salary: newSalary};
+          return {...item, salary: newSalary};
         }
         return item;
       })
     }));
   };
 
+  componentDidUpdate() {
+    localStorage.setItem('employees', JSON.stringify(this.state.data));
+  }
+
+  componentDidMount() {
+    const data = localStorage.getItem('employees');
+    if (data) this.setState({data: JSON.parse(data)});
+  }
+
   render() {
-		const {data, term, filter} = this.state;
+    const {data, term, filter} = this.state;
     const employees = data.length;
     const increased = data.filter(item => item.increase).length;
-		const visibleData = this.filterPost(this.searchEmp(data, term), filter);
+    const visibleData = this.filterPost(this.searchEmp(data, term), filter);
 
     return (
       <div className="app">
@@ -113,7 +121,7 @@ class App extends Component {
           data={visibleData}
           onDelete={this.deleteItem}
           onToggleProp={this.toggleProp}
-					onUpdateSalary={this.updateSalary}
+          onUpdateSalary={this.updateSalary}
         />
         <EmployeeAddForm onAdd={this.addItem} />
       </div>
