@@ -1,27 +1,16 @@
-import { useState, useEffect } from 'react';
 import cn from 'classnames';
 import { NumericFormat } from 'react-number-format';
 import './employee-list-item.css';
 
-const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateWage, increase, rise }) => {
+const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateSalary, increase, rise }) => {
   const classes = cn('list-group-item', 'd-flex', 'justify-content-between', {
     increase,
     rise
   });
 
-  const [wage, setWage] = useState(salary);
-
-  useEffect(() => {
-    setWage(salary);
-  }, [salary]);
-
   const handleValueChange = values => {
-    const newWage = values.value; // Чистий числовий рядок
-    if (!/^\d*$/.test(newWage)) return; // Тільки цифри
-    // if (newWage && parseInt(newWage) > maxSalary) return;
-
-    setWage(newWage);
-    onUpdateWage(newWage);
+    const newSalary = values.value;
+    onUpdateSalary(newSalary);
   };
 
 	const isAllowed = values => {
@@ -41,7 +30,7 @@ const EmployeeListItem = ({ name, salary, onDelete, onToggleProp, onUpdateWage, 
       </span>
       <NumericFormat
         className="list-group-item-input"
-        value={wage}
+        value={salary}
         suffix="$"
         thousandSeparator={true}
         allowNegative={false}

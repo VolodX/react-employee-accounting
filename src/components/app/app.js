@@ -41,7 +41,7 @@ class App extends Component {
     this.setState(({data}) => ({data: [...data, newItem]}));
   };
 
-  onToggleProp = (id, prop) => {
+  toggleProp = (id, prop) => {
     this.setState(({data}) => ({
       data: data.map(item => {
         if (item.id === id) {
@@ -63,7 +63,7 @@ class App extends Component {
 		})
 	}
 
-	onUpdateSearch = (term) => {
+	updateSearch = (term) => {
 		this.setState({term: term})
 	}
 
@@ -78,15 +78,15 @@ class App extends Component {
 		}
 	}
 
-	onFilterSelect = (filter) => {
+	filterSelect = (filter) => {
 		this.setState({filter})
 	}
 
-  onUpdateWage = (id, wage) => {
+  updateSalary = (id, salary) => {
     this.setState(({ data }) => ({
       data: data.map(item => {
         if (item.id === id) {
-          const newSalary = parseInt(wage) || 0;
+          const newSalary = parseInt(salary) || 0;
           return { ...item, salary: newSalary};
         }
         return item;
@@ -105,15 +105,15 @@ class App extends Component {
         <AppInfo employees={employees} increased={increased} />
 
         <div className="search-panel">
-          <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <AppFilter filter={filter} onFilterSelect={this.onFilterSelect} />
+          <SearchPanel onUpdateSearch={this.updateSearch} />
+          <AppFilter filter={filter} onFilterSelect={this.filterSelect} />
         </div>
 
         <EmployeeList
           data={visibleData}
           onDelete={this.deleteItem}
-          onToggleProp={this.onToggleProp}
-					onUpdateWage={this.onUpdateWage}
+          onToggleProp={this.toggleProp}
+					onUpdateSalary={this.updateSalary}
         />
         <EmployeeAddForm onAdd={this.addItem} />
       </div>
