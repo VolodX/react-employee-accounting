@@ -95,6 +95,12 @@ class App extends Component {
     }));
   };
 
+	restoreEmployees = () => {
+		if (window.confirm("Restore the original employee list? All current data will be lost.")) {
+			this.setState({data: this.initialData})
+		}
+	}
+
 	componentDidMount() {
     const data = localStorage.getItem('employees');
     if (data) this.setState({data: JSON.parse(data)});
@@ -105,12 +111,6 @@ class App extends Component {
 			localStorage.setItem('employees', JSON.stringify(this.state.data));
 		}
   }
-
-	restoreEmployees = () => {
-		if (window.confirm("Restore the original employee list? All current data will be lost.")) {
-			this.setState({data: this.initialData})
-		}
-	}
 
   render() {
     const {data, term, filter} = this.state;
