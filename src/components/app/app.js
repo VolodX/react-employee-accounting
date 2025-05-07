@@ -106,6 +106,12 @@ class App extends Component {
 		}
   }
 
+	restoreEmployees = () => {
+		if (window.confirm("Restore the original employee list? All current data will be lost.")) {
+			this.setState({data: this.initialData})
+		}
+	}
+
   render() {
     const {data, term, filter} = this.state;
     const employees = data.length;
@@ -118,7 +124,7 @@ class App extends Component {
 
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.updateSearch} />
-          <AppFilter filter={filter} onFilterSelect={this.filterSelect} />
+          <AppFilter filter={filter} onFilterSelect={this.filterSelect} onRestoreEmployees={this.restoreEmployees} />
         </div>
 
         <EmployeeList

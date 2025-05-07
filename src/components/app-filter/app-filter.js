@@ -23,7 +23,17 @@ const AppFilter = props => {
     );
   });
 
-  return <div className="btn-group">{buttons}</div>;
+  return (
+		<div className="btn-group d-flex">
+			{buttons}
+				<button 
+				type="button" 
+				className="btn btn-outline-light ms-auto"
+				onClick={props.onRestoreEmployees}
+				>Restore employees
+				</button>
+		</div>
+	)
 };
 
 export default AppFilter;
