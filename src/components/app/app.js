@@ -10,13 +10,15 @@ import EmployeeAddForm from '../employee-add-form/employee-add-form';
 import './app.css';
 
 class App extends Component {
+	initialData = [
+		{name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
+		{name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
+		{name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
+		{name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
+	]
+
 	state = {
-		data: [
-			{name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
-			{name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
-			{name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
-			{name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
-		],
+		data: this.initialData,
 		term : '',
 		filter: 'all'
 	};
@@ -93,13 +95,15 @@ class App extends Component {
     }));
   };
 
-  componentDidUpdate() {
-    localStorage.setItem('employees', JSON.stringify(this.state.data));
-  }
-
-  componentDidMount() {
+	componentDidMount() {
     const data = localStorage.getItem('employees');
     if (data) this.setState({data: JSON.parse(data)});
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+		if (prevState.data !== this.state.data) {
+			localStorage.setItem('employees', JSON.stringify(this.state.data));
+		}
   }
 
   render() {
