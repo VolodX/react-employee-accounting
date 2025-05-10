@@ -12,9 +12,9 @@ import './app.css';
 class App extends Component {
 	initialData = [
 		{name: 'John C.', salary: 990, increase: false, rise: true, id: uuidv4()},
-		{name: 'Alex M.', salary: 4600, increase: true, rise: false, id: uuidv4()},
-		{name: 'Carl W.', salary: 9500, increase: false, rise: false, id: uuidv4()},
-		{name: 'Mark.F', salary: 17000, increase: false, rise: false, id: uuidv4()}
+		{name: 'Alex M.', salary: 4700, increase: true, rise: false, id: uuidv4()},
+		{name: 'Carl W.', salary: 9800, increase: false, rise: false, id: uuidv4()},
+		{name: 'Mark.F', salary: 22000, increase: false, rise: false, id: uuidv4()}
 	]
 
 	state = {
