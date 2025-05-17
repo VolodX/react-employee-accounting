@@ -1,17 +1,35 @@
 # React Employee Accounting
 
-🚧 This project is currently under development.
+**React Employee Accounting** is a simple React application for managing and tracking company employees.
 
-React Employee Accounting is a simple React-based application designed to manage and track employee data within a company.
+## Features
+- 📋 Display list of employees with name and salary  
+- ➕ Add new employee (name + salary)  
+- 🗑 Delete employee  
+- 🍪 Mark for **bonus** (click the cookie icon)  
+- ⭐ Mark for **promotion** (click the employee’s name)  
+- 🔍 Live search by name  
+- 📊 Filters:
+  - All employees  
+  - Those marked for promotion  
+  - Salary over $1000  
+- 🔄 **Restore employees** – resets to the default list  
+- 💾 Data is persisted in **Local Storage**
 
-## Project Status
+## Screenshot
+![App Screenshot](public/images/emp-app.jpg)
 
-> This is an early version of the application. Core features are in progress.
+## Tech Stack
+- React (Create React App)  
+- JavaScript (ES6+)  
+- CSS
+- Local Storage API  
 
-## Installation
+## Installation & Running Locally
 
 ```bash
-git clone https://github.com/VolodX/react-employee-accounting
+git clone https://github.com/VolodX/react-employee-accounting.git
 cd react-employee-accounting
+
 npm install
 npm start
