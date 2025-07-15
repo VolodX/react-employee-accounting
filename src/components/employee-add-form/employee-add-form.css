@@ -15,3 +15,13 @@
   width: 350px;
   margin-right: 20px;
 }
+
+@media (max-width: 590px) {
+  .add-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .add-form input {
+    width: 100%;
+  }
+}
